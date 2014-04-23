@@ -7,8 +7,74 @@ categories: jekyll update
 
 <h1>&nbsp;</h1>
 
-<h1>Equipos</h1>
+<script>
+$( document ).ready(function() {
+	$.ajax({
+	url: "https://script.google.com/macros/s/AKfycbz5rFg6r5LIBboOugw-7L4KocCAv8E_mQX_AtnWuEglfrBbkHs/exec",
+
+	// the name of the callback parameter, as specified by the YQL service
+	jsonp: "callback",
+
+	// tell jQuery we're expecting JSONP
+	dataType: "jsonp",
+
+	// work with the response
+	success: function( response ) {
+
+	    console.log( response ); // server response
+
+
+
+	    var equipos = response.Equipos;
+	    var htmlEquipos = "";
+
+	    for (i = 0; i < equipos.length; i = i + 2) {
+	    	htmlEquipos += "<p>" + equipos[i].Nombre_de_Equipo + "</p>";
+	    }
+	   
+	    $("#equipos").html(htmlEquipos);
+
+
+
+	    var partidos = response.Partidos;
+	    var htmlPartidos = "";
+
+	    for (i = 0; i < partidos.length; i++) {
+	    	htmlPartidos += "<p>" + partidos[i].Equipo_Local + " VS " + partidos[i].Equipo_Visitante + "<br/>"
+	    	htmlPartidos += partidos[i].Resultado + "</p>";
+	    }
+
+	    $("#partidos").html(htmlPartidos);
+
+
+
+		var clasificacion = response.Clasificacion;
+	    var htmlClasificacion = "";
+
+	    for (i = 0; i < clasificacion.length; i++) {
+	    	htmlClasificacion += "<p>" + clasificacion[i].Equipo + "   " + clasificacion[i].PJ + "   " + clasificacion[i].PG+ "   " + clasificacion[i].PP + "   " + clasificacion[i].Puntos+ "</p>"
+	    }
+	    //svar claisifcacion = respuesta.Clasificacion;
+	    $("#clasificacion").html(htmlClasificacion);
+	    
+
+	}
+	});
+});
+
+</script>
+
+<h1>Parejas</h1>
+<div id="equipos">Cargando datos...</div>
+
+<h1>&nbsp;</h1>
 
 <h1>Partidos</h1>
+<div id="partidos">Cargando datos...</div>
+
+<h1>&nbsp;</h1>
 
 <h1>Clasificación</h1>
+<div id="clasificacion">Cargando datos...</div>
+
+<h1>&nbsp;</h1>
